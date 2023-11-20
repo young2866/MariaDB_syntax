@@ -74,3 +74,42 @@ WHERE TABLE_NAME = 'author';
 ALTER TABLE author DROP CONSTRAINT email_unique;
 -- author 테이블의 email 컬럼에 unique제약 조건 추가(방법 2)
 ALTER TABLE author ADD CONSTRAINT unique_email UNIQUE(email);
+
+-- post테이블의 외래키 조건 삭제
+ALTER TABLE post DROP FOREIGN KEY post_ibfk_1;
+-- 조건 삭제됐는지 조회
+SELECT * FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'post';
+-- ON UPDATE CASCADE 옵션을 가진 외래키 조건 생성
+ALTER TABLE post ADD CONSTRAINT post_author_fk FOREIGN KEY(author_id)
+REFERENCES author(id) ON UPDATE CASCADE;
+-- author_id가 2인 데이터 업데이트
+-- author_id가 2인 데이터들이 전부 10으로 변경된 것을 볼 수 있다.
+UPDATE author SET id = 10 WHERE id = 2;
+
+-- ON DELETE SET NULL ON UPDATE SET NULL
+ALTER TABLE post ADD CONSTRAINT post_author_fk FOREIGN KEY(author_id)
+REFERENCES author(id) ON DELETE SET NULL ON UPDATE SET NULL;
+-- delete와 update 모두 post테이블에서 author_id = NULL로 바뀌는 것을 볼 수 있다.
+DELETE FROM author WHERE id=2;
+UPDATE author SET id = 2 WHERE id = 10;
+
+-- post테이블에서 id, title, contents, 그리고 author_id의 경우 author_type이라는 이름으로 조회
+--
+SELECT id, title, contents, 
+case author_id
+    when 1 then 'First Author'
+    when 2 then 'Second Author'
+    when author_id is null then 'Anonymous'
+    ELSE 'Others'
+end
+as author_type FROM post;
+
+--A는 조건 B => 참일 경우의 반환값 C => 거짓일 경우의 반환값
+IF(A, B, C)
+--A의 값이 NULL이 아니면 A, NULL일 경우에 B
+IFNULL(A, B)
+--IF문법으로 id가 1이면 first author 그렇지 않은 경우는 others 출력
+SELECT id, title, contents, 
+IF(author_id = 1, "First Author", "Others")
+as author_type FROM post;
