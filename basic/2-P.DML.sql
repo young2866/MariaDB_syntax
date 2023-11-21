@@ -113,3 +113,8 @@ IFNULL(A, B)
 SELECT id, title, contents, 
 IF(author_id = 1, "First Author", "Others")
 as author_type FROM post;
+
+
+--Group By
+SELECT author_id ,COUNT(author_id)  from post group by author_id
+SELECT author_id ,AVG(price), SUM(price)  from post group by author_id
