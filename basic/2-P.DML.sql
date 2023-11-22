@@ -118,3 +118,27 @@ as author_type FROM post;
 --Group By
 SELECT author_id ,COUNT(author_id)  from post group by author_id
 SELECT author_id ,AVG(price), SUM(price)  from post group by author_id
+
+-- 1.author_id 별로 price 평균값을 구하시오. 단, 건별로 2000원 이상인 데이터만 평균을 내서 출력하시오.
+SELECT author_id ,AVG(price)  
+from post
+WHERE price >= 2000
+group by author_id
+
+-- 2.author_id  별로 price평균값을 구하되 그룹별 평균값이 2000원 이상인 데이터만 출력하시오.
+SELECT author_id ,AVG(price)  
+from post
+group by author_id
+HAVING AVG(price) >= 2000 
+
+--(1 + 2)
+SELECT author_id ,AVG(price)  
+from post
+WHERE price >= 2000
+group by author_id
+HAVING AVG(price) >= 2000
+
+-- author 테이블에 name으로 인덱스 생성
+CREATE INDEX idx_name ON author(name);
+--author의 name, email으로 복합컬럼 인덱스 생성
+CREATE INDEX mul_index ON author(name, email)
