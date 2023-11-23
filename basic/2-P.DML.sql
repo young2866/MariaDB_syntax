@@ -142,3 +142,5 @@ HAVING AVG(price) >= 2000
 CREATE INDEX idx_name ON author(name);
 --author의 name, email으로 복합컬럼 인덱스 생성
 CREATE INDEX mul_index ON author(name, email)
+
+mysqldump -u root -p --default-character-set=utf8mb4 board > dumpfile.sql
