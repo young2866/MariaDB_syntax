@@ -9,8 +9,7 @@ values(5, 'jung', 'abc4@naver.com', '1234', 'User');
 INSERT INTO author(id, name, email, password, role) 
 values(6, 'hwang', 'abc5@naver.com', '1234', 'User');
 
-INSERT INTO post(id, title, contents, author_id) 
-values(1, 'hello1', 'go to hello', 1);
+<mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="2" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="430" y="430" width="250" height="30" as="geometry"><mxRectangle width="250" height="30" as="alternateBounds"/></mxGeometry></mxCell></root></mxGraphModel>
 INSERT INTO post(id, title, contents, author_id) 
 values(2, 'hello2', 'go to hello', 2);
 
